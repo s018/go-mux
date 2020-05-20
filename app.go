@@ -152,8 +152,43 @@ func (a *App) deleteProduct(w http.ResponseWriter, r *http.Request) {
 	respondWithJSON(w, http.StatusOK, map[string]string{"result": "success"})
 }
 
+func (a *App) getAllProducts(w http.ResponseWriter, r *http.Request) {
+	products, err := getAllProducts(a.DB)
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, products)
+}
+
+func (a *App) getMaxPriceProduct(w http.ResponseWriter, r *http.Request) {
+	var p product
+
+	if err := p.getMaxPriceProduct(a.DB); err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, p)
+}
+
+func (a *App) getMinPriceProduct(w http.ResponseWriter, r *http.Request) {
+	var p product
+
+	if err := p.getMinPriceProduct(a.DB); err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, p)
+}
+
 func (a *App) initializeRoutes() {
+	a.Router.HandleFunc("/products/all", a.getAllProducts).Methods("GET")
 	a.Router.HandleFunc("/products", a.getProducts).Methods("GET")
+	a.Router.HandleFunc("/product/price/max", a.getMaxPriceProduct).Methods("GET")
+	a.Router.HandleFunc("/product/price/min", a.getMinPriceProduct).Methods("GET")
 	a.Router.HandleFunc("/product", a.createProduct).Methods("POST")
 	a.Router.HandleFunc("/product/{id:[0-9]+}", a.getProduct).Methods("GET")
 	a.Router.HandleFunc("/product/{id:[0-9]+}", a.updateProduct).Methods("PUT")
