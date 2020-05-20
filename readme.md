@@ -24,9 +24,9 @@ Following the tutorial I ended up with a working ProductService (App).
 ## Additional Features
 As stated in the assignment description new features are added at this point.
 
-- `getAllProducts` including a corresponding test case
-- `getMaxPriceProduct` get product with the highest price
-- `getMinPriceProduct` get product with the lowest price
+- `getAllProducts` to get all products at once (without any further parameters), including a corresponding test case
+- `getMaxPriceProduct` get product with the highest price, including a corresponding test case
+- `getMinPriceProduct` get product with the lowest price, including a corresponding test case
 
 ![](screenshots/new_features_tests.png)
 
@@ -35,5 +35,5 @@ I wasn't able to implement the `getMaxPriceProduct` and the `getMinPriceProduct`
 
 Go is a very handy programming language, but I find it hard for myself to get used to it - maybe because I am more common to Kotlin and feel at more at home with the Spring environment. Nevertheless this was an exciting exercise!
 
-## Resulting Branches
+## Resulting Branches/Commits
 ![](screenshots/result.png)
