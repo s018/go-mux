@@ -34,3 +34,6 @@ As stated in the assignment description new features are added at this point.
 I wasn't able to implement the `getMaxPriceProduct` and the `getMinPriceProduct` functions as "global" functions - still couldn't figure out why it didn't work out. I was able to implement them as type-specific-methods.
 
 Go is a very handy programming language, but I find it hard for myself to get used to it - maybe because I am more common to Kotlin and feel at more at home with the Spring environment. Nevertheless this was an exciting exercise!
+
+## Resulting Branches
+![](screenshots/result.png)
