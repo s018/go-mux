@@ -1,4 +1,4 @@
-# Exercise 03 - Travis CI
+# Exercise 03 - Travis CI [![Build Status](https://travis-ci.com/s018/go-mux.svg?branch=master)](https://travis-ci.com/s018/go-mux)
 
 ## Changes
 The changes came up with the database. Beforehand `brew` was used to init and create the database. For this exercise the database was switched to a docker deployment.
@@ -10,6 +10,7 @@ The Travis CI build was initiated as soon as the first commit was done (just com
 
 ## Solution
 The solution one can think of (as we did on local environment) add the global variables to the Travis-file.
+
 ```YAML
 env:
   global:
@@ -17,3 +18,16 @@ env:
     - APP_DB_PASSWORD=
     - APP_DB_NAME=postgres
 ```
+
+One could also go with fixed credentials in the [main_test.go](main_test.go) file:
+
+```go
+a.Initialize(
+    "postgres", //os.Getenv("APP_DB_USERNAME"),
+    "",         //os.Getenv("APP_DB_PASSWORD"),
+    "postgres" //os.Getenv("APP_DB_NAME"))
+)
+```
+
+Since this approach isn't the most promising, better export standard credentials in the Travis-yml, as this gives developers the opportunity to use own credentials. After this change the Travis build exits with a success message as seen below
+![](screenshots/travis_success.png)
