@@ -15,9 +15,6 @@ services:
   - postgresql
   - docker 
 
-before_script:
-  - psql -c 'create database postgres;' -U postgres
-
 script:
   # Test the code 
   - go test -v ./...

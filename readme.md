@@ -16,9 +16,4 @@ env:
     - APP_DB_USERNAME=postgres
     - APP_DB_PASSWORD=
     - APP_DB_NAME=postgres
-
-before_script:
-  - psql -c 'create database postgres;' -U postgres
 ```
-
-After that the 
