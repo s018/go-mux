@@ -1,39 +1,33 @@
-# Assignment 02 - Microservice with Go and PostGreSQL
+# Exercise 03 - Travis CI [![Build Status](https://travis-ci.com/s018/go-mux.svg?branch=master)](https://travis-ci.com/s018/go-mux)
 
-## Initial project setup 
-- execute `chmod +x init.sh` in this folder
-- execute `./init.sh` to get your Go- and PostgreSQL-environment up and running
+## Changes
+The changes came up with the database. Beforehand `brew` was used to init and create the database. For this exercise the database was switched to a docker deployment.
 
-![](screenshots/initial_app_testing_setup.png)
+## Travis CI
+The Travis CI build was initiated as soon as the first commit was done (just committing and pushing the [travis.yml](.travis.yml)). I noticed the build couldn't get through because there are no credentials exported by the yml-script. Therefore the build fails as one can see in the [build log](build.log). One can also take a look via Travis website [here](https://travis-ci.com/github/s018/go-mux) as the project is on open source state anyways.
 
-## Database Setup
-- use the `postgre_init.sh` to get your PostGreSQL database and user running
-- you need to use it in the assignment
-- execute the following code in bash so you have the DB-credentials available
+![](screenshots/travis_fail.png)
 
-```bash
-export APP_DB_USERNAME=a02
-export APP_DB_PASSWORD=<same as username, but I don't want to be that forthcoming>
-export APP_DB_NAME=a02
+## Solution
+The solution one can think of (as we did on local environment) add the global variables to the Travis-file.
+
+```YAML
+env:
+  global:
+    - APP_DB_USERNAME=postgres
+    - APP_DB_PASSWORD=
+    - APP_DB_NAME=postgres
 ```
-## App Functionality
-Following the tutorial I ended up with a working ProductService (App).
 
-![](screenshots/final_testing.png)
+One could also go with fixed credentials in the [main_test.go](main_test.go) file:
 
-## Additional Features
-As stated in the assignment description new features are added at this point.
+```go
+a.Initialize(
+    "postgres", //os.Getenv("APP_DB_USERNAME"),
+    "",         //os.Getenv("APP_DB_PASSWORD"),
+    "postgres" //os.Getenv("APP_DB_NAME"))
+)
+```
 
-- `getAllProducts` to get all products at once (without any further parameters), including a corresponding test case
-- `getMaxPriceProduct` get product with the highest price, including a corresponding test case
-- `getMinPriceProduct` get product with the lowest price, including a corresponding test case
-
-![](screenshots/new_features_tests.png)
-
-## Personal Notes/Lesson learnt
-I wasn't able to implement the `getMaxPriceProduct` and the `getMinPriceProduct` functions as "global" functions - still couldn't figure out why it didn't work out. I was able to implement them as type-specific-methods.
-
-Go is a very handy programming language, but I find it hard for myself to get used to it - maybe because I am more common to Kotlin and feel at more at home with the Spring environment. Nevertheless this was an exciting exercise!
-
-## Resulting Branches/Commits
-![](screenshots/result.png)
+Since this approach isn't the most promising, better export standard credentials in the Travis-yml, as this gives developers the opportunity to use own credentials. After this change the Travis build exits with a success message as seen below
+![](screenshots/travis_success.png)

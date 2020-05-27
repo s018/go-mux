@@ -1,0 +1,20 @@
+os: linux
+
+language: go
+
+go:
+  - 1.14.x
+
+env:
+  global:
+    - APP_DB_USERNAME=postgres
+    - APP_DB_PASSWORD=
+    - APP_DB_NAME=postgres
+
+services:
+  - postgresql
+  - docker 
+
+script:
+  # Test the code 
+  - go test -v ./...
