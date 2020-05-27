@@ -7,15 +7,15 @@
 ![](screenshots/initial_app_testing_setup.png)
 
 ## Database Setup
-- use the `postgre_init.sh` to get your PostGreSQL database and user running
-- you need to use it in the assignment
-- execute the following code in bash so you have the DB-credentials available
+- you only have to export the variables below
+- The database setup is already done with the `init.sh`
 
 ```bash
-export APP_DB_USERNAME=a02
-export APP_DB_PASSWORD=<same as username, but I don't want to be that forthcoming>
-export APP_DB_NAME=a02
+export APP_DB_USERNAME=postgres
+export APP_DB_PASSWORD=postgres
+export APP_DB_NAME=postgres
 ```
+
 ## App Functionality
 Following the tutorial I ended up with a working ProductService (App).
 
