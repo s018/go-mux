@@ -5,9 +5,18 @@ language: go
 go:
   - 1.14.x
 
+env:
+  global:
+    - APP_DB_USERNAME=postgres
+    - APP_DB_PASSWORD=
+    - APP_DB_NAME=postgres
+
 services:
   - postgresql
   - docker 
+
+before_script:
+  - psql -c 'create database postgres;' -U postgres
 
 script:
   # Test the code 
