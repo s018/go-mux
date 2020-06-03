@@ -17,6 +17,7 @@ services:
 
 script:
   # Test the code 
+  - go install
   - go test -v ./...
   - echo "$REGISTRY_PASSWORD" | docker login --username $REGISTRY_USER --password-stdin
   - docker build -f Dockerfile -t s1810/demo:latest ./
