@@ -18,7 +18,7 @@ services:
 script:
   # Test the code 
   - go test -v ./...
-  - echo "REGISTRY_PASSWORS" | docker login --username $REGISTRY_USER --password-stdin
+  - echo "$REGISTRY_PASSWORS" | docker login --username $REGISTRY_USER --password-stdin
   - docker build -f Dockerfile -t s1810/demo:latest ./
   - GIT_SHA="$(git rev-parse --short HEAD)"
   - docker tag s1810/demo:latest s1810/demo:$GIT_SHA
