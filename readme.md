@@ -1,33 +1,63 @@
-# Exercise 03 - Travis CI [![Build Status](https://travis-ci.com/s018/go-mux.svg?branch=master)](https://travis-ci.com/s018/go-mux)
+# Assignment 03
+## S1810455012, Manuel Leibetseder
 
-## Changes
-The changes came up with the database. Beforehand `brew` was used to init and create the database. For this exercise the database was switched to a docker deployment.
+### Prerequisites
 
-## Travis CI
-The Travis CI build was initiated as soon as the first commit was done (just committing and pushing the [travis.yml](.travis.yml)). I noticed the build couldn't get through because there are no credentials exported by the yml-script. Therefore the build fails as one can see in the [build log](build.log). One can also take a look via Travis website [here](https://travis-ci.com/github/s018/go-mux) as the project is on open source state anyways.
+- [x] Docker installation
+- [x] DockerHub account registration
 
-![](screenshots/travis_fail.png)
+### Part 1
 
-## Solution
-The solution one can think of (as we did on local environment) add the global variables to the Travis-file.
+#### ACK `main.go` run
+![](screenshots/run_mk_repo.png)
 
-```YAML
-env:
-  global:
-    - APP_DB_USERNAME=postgres
-    - APP_DB_PASSWORD=
-    - APP_DB_NAME=postgres
-```
+#### ACK CURL
+![](screenshots/ack_run_mk_repo.png)
 
-One could also go with fixed credentials in the [main_test.go](main_test.go) file:
+#### ACK Tests Run
+![](screenshots/run_mk_repo_tests.png)
 
-```go
-a.Initialize(
-    "postgres", //os.Getenv("APP_DB_USERNAME"),
-    "",         //os.Getenv("APP_DB_PASSWORD"),
-    "postgres" //os.Getenv("APP_DB_NAME"))
-)
-```
+#### Dockerfile Modifications
+Modifications as pointed out in the Dockerfile itself can be found [here](Dockerfile).
 
-Since this approach isn't the most promising, better export standard credentials in the Travis-yml, as this gives developers the opportunity to use own credentials. After this change the Travis build exits with a success message as seen below
-![](screenshots/travis_success.png)
+#### Build Image
+Building the image with:
+
+`docker image build -f Dockerfile -t s1810/my-first-docker-image:0.0.1 ./`
+
+ 
+![](screenshots/docker_image_build.png)
+
+#### Docker Images
+Current images available on my machine:
+
+![](screenshots/docker_images.png)
+
+#### DockerHub Login
+![](screenshots/login_success.png)
+
+#### DockerHub Push
+![](screenshots/push_command.png)
+![](screenshots/docker_hub.png)
+
+### Part 2
+#### Docker Run & Stop
+![](screenshots/build_image.png)
+![](screenshots/run_stop.png)
+
+### Part 3
+#### Dockerfile and .travis.yml Adaption
+Using Travis CI to automatically build the image of the exercise. The Dockerfile and .travis-yml had to be adapted to make it work fully automatically.
+![](screenshots/travis_build_success.png)
+![](screenshots/docker_hub_images.png)
+
+#### Pulling the Images
+In order to verify the images were pushed to the DockerHub-repository a pull has been done:
+![](screenshots/images_pull.png)
+
+#### Run the Containers
+Verifying working containers:
+![](screenshots/docker_run_demo_containers.png)
+
+
+

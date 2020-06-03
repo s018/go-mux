@@ -13,8 +13,15 @@ env:
 
 services:
   - postgresql
-  - docker 
+  - docker
 
 script:
   # Test the code 
+  - go install
   - go test -v ./...
+  - echo "$REGISTRY_PASSWORD" | docker login --username $REGISTRY_USER --password-stdin
+  - docker build -f Dockerfile -t s1810/demo:latest ./
+  - GIT_SHA="$(git rev-parse --short HEAD)"
+  - docker tag s1810/demo:latest s1810/demo:$GIT_SHA
+  - docker push s1810/demo:latest
+  - docker push s1810/demo:$GIT_SHA
