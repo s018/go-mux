@@ -46,3 +46,18 @@ Current images available on my machine:
 ![](screenshots/run_stop.png)
 
 ### Part 3
+#### Dockerfile and .travis.yml Adaption
+Using Travis CI to automatically build the image of the exercise. The Dockerfile and .travis-yml had to be adapted to make it work fully automatically.
+![](screenshots/travis_build_success.png)
+![](screenshots/docker_hub_images.png)
+
+#### Pulling the Images
+In order to verify the images were pushed to the DockerHub-repository a pull has been done:
+![](screenshots/images_pull.png)
+
+#### Run the Containers
+Verifying working containers:
+![](screenshots/docker_run_demo_containers.png)
+
+
+
